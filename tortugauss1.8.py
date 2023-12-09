@@ -24,6 +24,11 @@ import random
 #                  \ ¤¤    \|    #
 ####################(((##(((######
 
+# /!\ IMPORTANT /!\
+# Pour executer le fichier, il faut ouvrir le dossier 'tortugauss 1.8' contenant le fichier python ainsi que le dossier 'projet tortuga'
+# Ouvrir le fichier python seulement entraine une erreur de redirection
+
+
 """
 _________ _______  _______ _________          _______  _______           _______  _______ 
 \__   __/(  ___  )(  ____ )\__   __/|\     /|(  ____ \(  ___  )|\     /|(  ____ \(  ____ \ 
@@ -472,49 +477,65 @@ class Tortugauss(tk.Tk):
             font="Helvetica " + str(int(4 * self.hauteur_fenetre / 100)) + " bold",
             background="papaya whip",
         )
-        self.chargementtext.pack(side="right")
-        tortue = ImageTk.PhotoImage(
-            Image.open("projet tortuga/tortumim.jpg").resize((50, 50))
-        )
-        self.etoilejaune = ImageTk.PhotoImage(
-            Image.open("projet tortuga/etoilejaune.png").resize(
-                (
-                    int(self.hauteur_fenetre * 6 / 100),
-                    int(self.hauteur_fenetre * 6 / 100),
+        try:
+            self.chargementtext.pack(side="right")
+            tortue = ImageTk.PhotoImage(
+                Image.open("projet tortuga/tortumim.jpg").resize((50, 50))
+            )
+            self.etoilejaune = ImageTk.PhotoImage(
+                Image.open("projet tortuga/etoilejaune.png").resize(
+                    (
+                        int(self.hauteur_fenetre * 6 / 100),
+                        int(self.hauteur_fenetre * 6 / 100),
+                    )
                 )
             )
-        )
-        self.etoilegrise = ImageTk.PhotoImage(
-            Image.open("projet tortuga/etoilegris.png").resize(
-                (
-                    int(self.hauteur_fenetre * 6 / 100),
-                    int(self.hauteur_fenetre * 6 / 100),
+            self.etoilegrise = ImageTk.PhotoImage(
+                Image.open("projet tortuga/etoilegris.png").resize(
+                    (
+                        int(self.hauteur_fenetre * 6 / 100),
+                        int(self.hauteur_fenetre * 6 / 100),
+                    )
                 )
             )
-        )
-        self.etoilejaune2 = ImageTk.PhotoImage(
-            Image.open("projet tortuga/etoilejaune.png").resize(
-                (
-                    int(self.hauteur_fenetre * 4 / 100),
-                    int(self.hauteur_fenetre * 4 / 100),
+            self.etoilejaune2 = ImageTk.PhotoImage(
+                Image.open("projet tortuga/etoilejaune.png").resize(
+                    (
+                        int(self.hauteur_fenetre * 4 / 100),
+                        int(self.hauteur_fenetre * 4 / 100),
+                    )
                 )
             )
-        )
-        self.etoilegrise2 = ImageTk.PhotoImage(
-            Image.open("projet tortuga/etoilegris.png").resize(
-                (
-                    int(self.hauteur_fenetre * 4 / 100),
-                    int(self.hauteur_fenetre * 4 / 100),
+            self.etoilegrise2 = ImageTk.PhotoImage(
+                Image.open("projet tortuga/etoilegris.png").resize(
+                    (
+                        int(self.hauteur_fenetre * 4 / 100),
+                        int(self.hauteur_fenetre * 4 / 100),
+                    )
                 )
             )
-        )
-        self.chargementim = tk.Label(
-            self.chargement, image=tortue, background="papaya whip"
-        )
-        self.chargementim.pack(side="left")
-        self.chargement.pack(side="bottom")
-        self.update()
-        self.after(1, self.initialisejeu)
+            self.chargementim = tk.Label(
+                self.chargement, image=tortue, background="papaya whip"
+            )
+            self.chargementim.pack(side="left")
+            self.chargement.pack(side="bottom")
+            self.update()
+            self.after(1, self.initialisejeu)
+        except FileNotFoundError:
+            self.erreur=tk.Label(
+            self,
+            text="Causes possibles:\n-Vous avez peut être mal ouvert le dossier. \nAssurez vous d'ouvrir le dossier contenant le fichier python\n et le dossier 'projet tortuga' et pas seulement le fichier Tortugauss1.8.py\n- Il vous manque peut être des fichiers,\n essayer de retélécharger les dossiers du jeu\n et de ne pas modifier les images qu'ils contiennent.\n Si ça ne marche pas, contactez l'équipe du jeu",
+            font="Helvetica " + str(int( 3* self.hauteur_fenetre / 100)) + " bold",
+            background="papaya whip",
+            )
+            self.erreur.place(x=self.largeur_fenetre/2,y=self.hauteur_fenetre/2,anchor='n')
+            self.erreur2=tk.Label(
+            self,
+            text="Erreur de redirection",
+            font="Helvetica " + str(int( 6* self.hauteur_fenetre / 100)) + " bold",
+            background="papaya whip",
+            )
+            self.erreur2.place(x=self.largeur_fenetre/2,y=self.hauteur_fenetre/2,anchor='s')
         self.mainloop()
 
     def initialisejeu(self):
