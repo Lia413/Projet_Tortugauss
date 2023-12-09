@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import ttk
 import time
 from PIL import Image, ImageTk
+import random
 
 ##################################
 # tortugauss1.8.py               #
@@ -761,13 +762,6 @@ class Tortugauss(tk.Tk):
             bg="papaya whip",
             borderwidth=0,
             highlightthickness=0,
-        )
-        self.creditcanva.create_text(
-            self.hauteur_fenetre * 4 / 5,
-            self.hauteur_fenetre * 1 / 5,
-            anchor="center",
-            font="Helvetica " + str(int(5 * self.hauteur_fenetre / 100)) + " bold",
-            text="programmeur:\nBenharrous Eytan\nJoly Lisa\nPuerta Oriane\nFiant Violette\n\nEncadrant: Nasr Alexis",
         )
         self.niveaucanva.bind("<ButtonRelease-1>", self.declickniveau)
         self.niveaucanva.bind("<Button-1>", self.clickniveau)
@@ -4192,7 +4186,123 @@ class Tortugauss(tk.Tk):
     def credit(self):
         self.diamant.pack_forget()
         self.creditcanva.pack()
-        self.menu.pack()
+        self.tortue = ImageTk.PhotoImage(
+            Image.open("projet tortuga/tortumim.jpg").resize((int(2*self.hauteur_fenetre/10), int(2*self.hauteur_fenetre/10)))
+        )
+        imtortue=self.creditcanva.create_image(0,0,image=self.tortue,)
+        for i in range(int(self.hauteur_fenetre/4)):
+            self.creditcanva.coords(imtortue,i*2,i)
+            self.update()
+        a1=0
+        a2=0
+        b=1
+        line=self.creditcanva.create_line(b*self.hauteur_fenetre/2+a1,b*self.hauteur_fenetre/2+a2,b*self.hauteur_fenetre/2+a1,b*self.hauteur_fenetre/2+a2,width=4)
+        for i in range(int(b*self.hauteur_fenetre/4)):
+            self.creditcanva.coords(line,b*self.hauteur_fenetre/2+a1,b*self.hauteur_fenetre/2+a2,b*self.hauteur_fenetre/2-i+a1,b*self.hauteur_fenetre/2+a2-i)
+            self.update()
+        line=self.creditcanva.create_line(b*self.hauteur_fenetre/4+a1,b*self.hauteur_fenetre/4+a2,b*self.hauteur_fenetre/4+a1,b*self.hauteur_fenetre/4+a2,width=4)
+        for i in range(int(b*self.hauteur_fenetre/8)):
+            self.creditcanva.coords(line,b*self.hauteur_fenetre/4+i*3+a1,b*self.hauteur_fenetre/4-i+a2,b*self.hauteur_fenetre/4+a1,b*self.hauteur_fenetre/4+a2)
+            self.update()
+        line=self.creditcanva.create_line(b*5*self.hauteur_fenetre/8+a1,b*self.hauteur_fenetre/8+a2,b*5*self.hauteur_fenetre/8+a1,b*self.hauteur_fenetre/8+a2,width=4)
+        for i in range(int(b*self.hauteur_fenetre/8)):
+            self.creditcanva.coords(line,b*5*self.hauteur_fenetre/8-i+a1,b*self.hauteur_fenetre/8+i*3+a2,b*5*self.hauteur_fenetre/8+a1,b*self.hauteur_fenetre/8+a2)
+            self.update()
+        
+        for j in range(15):
+            b=random.random()
+            a1=random.random()*self.hauteur_fenetre/5*4
+            a2=random.random()*self.hauteur_fenetre/5*3
+            color="#"+"%02x"%random.randint(100,255)+"%02x"%random.randint(100,255)+"%02x"%random.randint(100,255)
+            line=self.creditcanva.create_line(b*self.hauteur_fenetre/2+a1,b*self.hauteur_fenetre/2+a2,b*self.hauteur_fenetre/2+a1,b*self.hauteur_fenetre/2+a2,width=4,fill=color)
+            for i in range(int(b*self.hauteur_fenetre/4)):
+                self.creditcanva.coords(line,b*self.hauteur_fenetre/2+a1,b*self.hauteur_fenetre/2+a2,b*self.hauteur_fenetre/2-i+a1,b*self.hauteur_fenetre/2+a2-i,)
+                self.update()
+            line=self.creditcanva.create_line(b*self.hauteur_fenetre/4+a1,b*self.hauteur_fenetre/4+a2,b*self.hauteur_fenetre/4+a1,b*self.hauteur_fenetre/4+a2,width=4,fill=color)
+            for i in range(int(b*self.hauteur_fenetre/8)):
+                self.creditcanva.coords(line,b*self.hauteur_fenetre/4+i*3+a1,b*self.hauteur_fenetre/4-i+a2,b*self.hauteur_fenetre/4+a1,b*self.hauteur_fenetre/4+a2,)
+                self.update()
+            line=self.creditcanva.create_line(b*5*self.hauteur_fenetre/8+a1,b*self.hauteur_fenetre/8+a2,b*5*self.hauteur_fenetre/8+a1,b*self.hauteur_fenetre/8+a2,width=4,fill=color)
+            for i in range(int(b*self.hauteur_fenetre/8)):
+                self.creditcanva.coords(line,b*5*self.hauteur_fenetre/8-i+a1,b*self.hauteur_fenetre/8+i*3+a2,b*5*self.hauteur_fenetre/8+a1,b*self.hauteur_fenetre/8+a2)
+                self.update()
+        self.creditcanva.create_rectangle(self.hauteur_fenetre/2,self.hauteur_fenetre/4,self.hauteur_fenetre/2,self.hauteur_fenetre/5*2)
+        for i in range(int(self.hauteur_fenetre/2)):
+            self.creditcanva.create_rectangle(self.hauteur_fenetre/2,self.hauteur_fenetre/4,self.hauteur_fenetre/2+i,self.hauteur_fenetre/5*2,fill="white")
+            self.update()
+
+        self.creditcanva.create_text(self.hauteur_fenetre/4*3,self.hauteur_fenetre/4,anchor='n',text="Encadrant\nde projet:",font="Helvetica "
+                        + str(int(5 * self.hauteur_fenetre / 100))
+                        + " normal",)
+        self.creditcanva.create_rectangle(self.hauteur_fenetre/2,self.hauteur_fenetre/2,self.hauteur_fenetre/2,self.hauteur_fenetre/5*3)
+        for i in range(int(self.hauteur_fenetre/2)):
+            self.creditcanva.create_rectangle(self.hauteur_fenetre/2,self.hauteur_fenetre/2,self.hauteur_fenetre/2+i,self.hauteur_fenetre/5*3,fill="white")
+            self.update()
+        
+
+        self.creditcanva.create_text(self.hauteur_fenetre/4*3,self.hauteur_fenetre/2,anchor='n',text="Alexis Nasr",font="Helvetica "
+                        + str(int(5 * self.hauteur_fenetre / 100))
+                        + " normal",)
+        self.update()
+        time.sleep(3)
+        self.creditcanva.delete("all")
+        imtortue=self.creditcanva.create_image(0,self.hauteur_fenetre/8,anchor='w',image=self.tortue,)
+        text=self.creditcanva.create_text(0,self.hauteur_fenetre/8,anchor='e',text="Programmateurs:",font="Helvetica "
+                        + str(int(5 * self.hauteur_fenetre / 100))
+                        + " normal",)
+        for i in range(int(self.hauteur_fenetre)):
+            self.creditcanva.coords(imtortue,i,self.hauteur_fenetre/8)
+            self.creditcanva.coords(text,i,self.hauteur_fenetre/8)
+            self.update()
+        for j in range(int(self.hauteur_fenetre)):
+            self.creditcanva.coords(imtortue,i+j,self.hauteur_fenetre/8)
+            self.update()
+        programmeur=["Eytan Benharrous","Lisa Joly","Oriane Puerta","Violette Fiant"]
+        for a in range( 2,6):
+            imtortue=self.creditcanva.create_image(0,a*self.hauteur_fenetre/8,anchor='w',image=self.tortue,)
+            text=self.creditcanva.create_text(0,a*self.hauteur_fenetre/8,anchor='e',text=programmeur[a-2],font="Helvetica "
+                            + str(int(5 * self.hauteur_fenetre / 100))
+                            + " normal",)
+            for i in range(int(self.hauteur_fenetre)):
+                self.creditcanva.coords(imtortue,i,a*self.hauteur_fenetre/8)
+                self.creditcanva.coords(text,i,a*self.hauteur_fenetre/8)
+                self.update()
+        time.sleep(3)
+        self.creditcanva.delete("all")
+
+        
+        self.tortue2 = ImageTk.PhotoImage(
+            Image.open("projet tortuga/salade.png").resize((int(2*self.hauteur_fenetre/10), int(2*self.hauteur_fenetre/10)))
+        )
+        imtortue2=self.creditcanva.create_image(0,self.hauteur_fenetre/2,anchor='w',image=self.tortue2,)
+        imtortue=self.creditcanva.create_image(0,self.hauteur_fenetre/2,anchor='w',image=self.tortue,)
+        text=self.creditcanva.create_text(0,self.hauteur_fenetre/2,anchor='e',text="MERCI !",font="Helvetica "
+                        + str(int(8 * self.hauteur_fenetre / 100))
+                        + " normal",)
+        for i in range(int(self.hauteur_fenetre/4)):
+            self.creditcanva.coords(imtortue2,i*2,self.hauteur_fenetre/2)
+        for i in range(int(self.hauteur_fenetre/4*2)):
+            self.creditcanva.coords(imtortue,i,self.hauteur_fenetre/2)
+            self.creditcanva.coords(text,i,self.hauteur_fenetre/2)
+            self.creditcanva.coords(imtortue2,i+self.hauteur_fenetre/2,self.hauteur_fenetre/2)
+            self.update()
+        for i in range(int(self.hauteur_fenetre/4*2)):
+            self.creditcanva.coords(imtortue,i+self.hauteur_fenetre/4*2,self.hauteur_fenetre/2)
+            self.creditcanva.coords(text,i+self.hauteur_fenetre/4*2,self.hauteur_fenetre/2)
+            self.update()
+        time.sleep(3)
+        self.creditcanva.pack_forget(
+
+        )
+        self.diamant.pack(),
+        self.titre.pack(),
+        self.continuer.pack(),
+        self.blanc2[0].pack(),
+        self.niveau.pack(),
+        self.blanc2[1].pack(),
+        self.parametre.pack(),
+        self.blanc2[2].pack(),
+        self.skin.pack(),
 
     def reesaye(self):
         self.actifniveau -= 1
