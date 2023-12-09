@@ -6,7 +6,7 @@ import time
 from PIL import Image, ImageTk
 
 ##################################
-# tortugauss1.6.3.py             #
+# tortugauss1.8.py               #
 # Par Eytan Benharrous           #
 #     Lisa Joly                  #
 #     Oriane Puerta              #
@@ -51,10 +51,10 @@ ListeA = [
     # il manque systeme matrice triangulaire sup
     np.array([[1, 0], [2, 3]], dtype=np.float64),
     np.array([[1, 0], [1, 1]], dtype=np.float64),  # 14
+    np.array([[1,0],[2,-3]], dtype=np.float64), # 15
     np.array([[1, 3], [2, 2]], dtype=np.float64),  # 16
-    np.array([[1, 3, 1], [2, 3, 4], [1, 0, -3]], dtype=np.float64),  # 36
-    np.array([[4, -2], [1, 3]], dtype=np.float64),  # 17
-    np.array([[6, -3], [-3, 2]], dtype=np.float64),  # 18
+    np.array([[1, 3, 1], [2, 3, 4], [1, 0, -3]], dtype=np.float64),  # 17
+    np.array([[4, -2], [1, 3]], dtype=np.float64),  # 18
     np.array([[-6, 2], [1, -2]], dtype=np.float64),  # 19
     np.array([[-4, 6], [1, 6]], dtype=np.float64),  # 20
     np.array([[5, -1], [5, 1]], dtype=np.float64),  # 21
@@ -95,10 +95,10 @@ ListeB = [
     np.array([3.8, 6.5, 2.3], dtype=np.float64),  # 12 triang
     np.array([2, 8], dtype=np.float64),  # 13
     np.array([2, 3.5], dtype=np.float64),  # 14
+    np.array([2,2],dtype=np.float64), #15
     np.array([3, 4], dtype=np.float64),  # 16
-    np.array([8, 9, 4], dtype=np.float64),  # 36
-    np.array([4.8, -5.1], dtype=np.float64),  # 17
-    np.array([8.4, -4.6], dtype=np.float64),  # 18
+    np.array([8, 9, 4], dtype=np.float64),  # 17
+    np.array([4.8, -5.1], dtype=np.float64),  # 18 
     np.array([4.4, 2.6], dtype=np.float64),  # 19
     np.array([-2.4, 5.1], dtype=np.float64),  # 20
     np.array([5.2, 3.8], dtype=np.float64),  # 21
@@ -260,50 +260,52 @@ class Tortugauss(tk.Tk):
         self.listeetoile = star
         self.listetext = [
             ["Mmh, la tortue s'est régalée."],
-            ["Aucune laitue ne vous résiste"],
+            ["Aucune laitue ne vous résiste."],
             [
                 "Chacune de ces tortues avance à sa propre",
-                "vitesse. Par ailleur, elles avancent ",
-                "chacune indépendament des autres.",
+                "vitesse. Par ailleurs, elles avancent ",
+                "chacune indépendamment des autres.",
             ],
             [
-                "Ces deux tortues avance de manière",
-                "dépendante tout en avancant à des",
+                "Ces deux tortues avancent de manière",
+                "dépendante tout en avançant à des",
                 "vitesses différentes.",
             ],
             [
                 "Ces tortues sont encore une fois",
-                "dépendante selon le bouton foncé.",
+                "dépendantes selon le bouton foncé.",
                 "Cependant, le bouton clair agit sur",
-                "la deuxième indépendament de la première.",
+                "la deuxième indépendamment de la première.",
             ],
-            ["En effet, il n'y en a pas"],
-            ["Bien joué. Essayez de retenir la solution", " de ce niveau"],
+            ["En effet, il n'y en a pas."],
+            ["Bien joué ! Essayez de retenir la solution", " de ce niveau."],
             [
                 "En effet, ce niveau possède de nombreuses",
-                "solutions (en réalité, une infinité)",
+                "solutions (en réalité, une infinité).",
             ],
-            ["Bravo! Ça ne t'a posé aucun problème"],
-            ["Trop fort, tu maitrises parfaitement", "le controle des deux tortues."],
-            ["Pas facile, pas vrai? Le niveau suivant", "devrait t'aider."],
-            ["ça devait être bien plus facile que le", "précédent!"],
+            ["Bravo! Ça ne vous a posé aucun problème."],
+            ["Trop fort, vous maitrisez parfaitement", "le contrôle des deux tortues."],
+            ["Pas facile, pas vrai? Le niveau suivant", "devrait vous aider."],
+            ["Ça devait être bien plus facile que le", "niveau précédent !"],
             [
                 "Normalement, vous avez du remarquer que",
-                "les solutions sont les mêmes, mêmes après",
+                "les solutions sont les mêmes, même après",
                 "ajout et soustraction de colonnes.",
             ],
             [
                 "Les solutions sont en effet les mêmes,",
                 "après avoir doublé toutes les colonnes.",
+                "Dans les prochains niveaux utilise bien",
+                "tout ce que tu as appris jusqu’à maintenant."
             ],
             [
                 "Si vous avez compris la méthode présentée,",
                 "essayez de l'appliquer pour résoudre le",
-                "niveau suivants",
+                "niveau suivant.",
             ],
             [
-                "Bien joué! Vous avez résolu tous les niveaux",
-                "éducatifs, nous espérons que cela vous as plu.",
+                "Bien joué ! Vous avez résolu tous les niveaux",
+                "éducatifs, nous espérons que cela vous a plu.",
                 "Vous pouvez maintenant continuer à résoudre",
                 "des niveaux pour débloquer des diamants et",
                 "acheter de nouveaux animaux.",
@@ -335,55 +337,62 @@ class Tortugauss(tk.Tk):
             [],
         ]
         self.listetext2 = [
-            ["La tortue a faim!", "Essaye de la déplacer avec le bouton bleu."],
+            ["La tortue a faim !", 
+             "Essayez de la déplacer avec le bouton bleu."],
             [
                 "Cette fois, la laitue est de l'autre côté.",
                 "Il faut faire reculer la tortue.",
             ],
             [
                 "Ces trois tortues sont toutes affamées.",
-                "chacune possède son propre bouton.",
+                "Chacune possède son propre bouton.",
             ],
-            ["Ces deux tortues sont liées.", "elles sont controlées par le même bouton."],
+            ["Ces deux tortues sont liées.", 
+             "Elles sont controlées par le même bouton."],
             [
-                "Deux tortues, deux boutons",
-                "Mais est-ce aussi simple que les niveaux précédents?",
+                "Deux tortues, deux boutons.",
+                "Mais est-ce aussi simple que les niveaux précédents ?",
             ],
-            ["Ce niveau est vraiment facile"],
+            ["Ce niveau est vraiment facile."],
             ["Concentrez-vous pour mémoriser comment vous résolvez", "ce niveau"],
             [
                 "Ce niveau est le même que le niveau précédent,",
-                "mais essayez cette fois de trouver une autre solution,",
+                "mais essayez cette fois de trouver une autre solution.",
             ],
-            ["Il n'y a qu'une solution pour ce niveau", "Arriveras-tu à la trouver?"],
+            ["Il n'y a qu'une solution pour ce niveau.",
+              "Arriverez-vous à la trouver ?"],
             [
                 "Les choses commencent à se compliquer, le bouton foncé",
                 "fait à la fois avancer la première tortue et reculer la",
-                "deuxième",
+                "deuxième.",
             ],
-            ["voyons voir comment tu te débrouilles avec 3 tortues"],
+            ["Voyons voir comment vous vous débrouillez avec 3 tortues."],
             [
                 "Ce niveau est le même que le précédent.",
-                "mais cette fois, le tableau de droite devrait t'aider.",
-                "Essaye de résoudre le niveau en utilisant seulement",
-                "le tableau de droite",
+                "Mais cette fois, le tableau de droite devrait vous aider.",
+                "Essayez de résoudre le niveau en utilisant seulement",
+                "le tableau de droite.",
             ],
             [
                 "Faites glisser les petites icônes A et B dans les cercles",
-                "du pouvoir tortue et appuyez sur le bouton pour soustraire ou",
-                "ajouter deux colonnes",
+                "du pouvoir tortue et appuyez sur le bouton pour soustraire",
+                "ou ajouter deux colonnes.",
             ],
             [
                 "Les rectangles du deuxième tableau sont deux fois plus",
-                "élevés que ceux du premier. Voyons voir si leur solution sont",
-                "différentes ou non.",
+                "haut que ceux du premier. Voyons voir si leurs solutions ",
+                "sont différentes ou non.",
             ],
+            [   "Deux nouveaux boutons sont désormais utilisables. Ils", 
+                "permettent de modifier la hauteur des rectangles." 
+                "Évitez d'appuyer trop de fois sur le bouton / car",
+                  "cela provoque un bug dans la détection de la salade."],
             [
                 "Essayez de doubler la hauteur de la première colonne",
-                "avec le boutons X, puis soustrayez la deuxième colonne",
+                "avec le bouton X, puis soustrayez la deuxième colonne",
                 "à la première. Vous devriez obtenir un niveau simple.",
             ],
-            ["Essayez d'adopter la même méthode que le niveau précédent"],
+            ["Essayez d'adopter la même méthode que le niveau précédent."],
             [],
             [],
             [],
@@ -433,7 +442,7 @@ class Tortugauss(tk.Tk):
         self.actifniveau = 0
         self.listeA = A
         self.listeB = B
-        self.actifA = A[self.actifniveau]
+        self.actifA = A[self.actifniveau].copy()
         if self.actifniveau == 11:
             self.actifA2 = np.array(
                 [[1, 1, 1], [0, 2, 4], [0, 0, 4]], dtype=np.float64
@@ -444,7 +453,7 @@ class Tortugauss(tk.Tk):
             self.actifA2 = self.listeA[self.actifniveau].copy()
         else:
             self.actifA2 = np.array([[2, 0], [2, 2]], dtype=np.float64)
-        self.actifB = B[self.actifniveau]
+        self.actifB = B[self.actifniveau].copy()
         if self.actifniveau == 11:
             self.actifB2 = np.array([1.3, -3.8, -4.0], dtype=np.float64)  # 12 triang
         elif self.actifniveau == 12:
@@ -1608,7 +1617,7 @@ class Tortugauss(tk.Tk):
             ["test"],
             "Helvetica " + str(int(2 * self.hauteur_fenetre / 100)) + " bold",
             4 * self.hauteur_fenetre / 100,
-            6 * self.hauteur_fenetre / 10,
+            7 * self.hauteur_fenetre / 10,
         )
         self.continuer2.pack()
         self.blanc3[2].pack()
@@ -1634,7 +1643,7 @@ class Tortugauss(tk.Tk):
     def changesysteme(self, event):
         systeme = int(self.systeme.get()[-2] + self.systeme.get()[-1]) - 1
         self.actifniveau = systeme
-        self.actifA = self.listeA[systeme]
+        self.actifA = self.listeA[systeme].copy()
         if self.actifniveau == 11:
             self.actifA2 = np.array(
                 [[1, 1, 1], [0, 2, 4], [0, 0, 4]], dtype=np.float64
@@ -1650,7 +1659,7 @@ class Tortugauss(tk.Tk):
         self.codegif = [0 for k in self.actifA]
         self.gifcheck2 = [False for k in self.actifA]
         self.codegif2 = [0 for k in self.actifA]
-        self.actifB = self.listeB[systeme]
+        self.actifB = self.listeB[systeme].copy()
         if self.actifniveau == 11:
             self.actifB2 = np.array([1.3, -3.8, -4.0], dtype=np.float64)  # 12 triang
         elif self.actifniveau == 12:
@@ -1672,9 +1681,8 @@ class Tortugauss(tk.Tk):
         self.gaussemplacement = [0, 0, 0, 0]
         self.pause.itemconfig(self.pauseetoile[2], image=self.etoilejaune)
         self.pause.itemconfig(self.pauseetoile[1], image=self.etoilejaune)
-        self.preparecanva()
+
         self.canva2.delete("all")
-        self.preparebouton()
 
     def preparecanva(self):
         self.stop = True
@@ -1706,7 +1714,7 @@ class Tortugauss(tk.Tk):
                     width=self.largeur + 2 * self.hauteur_fenetre / 10,
                     height=self.hauteur + self.hauteur_fenetre / 10,
                 )
-            elif self.actifniveau == 14 or self.actifniveau == 15:
+            elif self.actifniveau == 14 or self.actifniveau == 15 or self.actifniveau >= 16:
                 self.canva.config(
                     width=self.largeur + 2 * self.hauteur_fenetre / 10,
                     height=self.hauteur + self.hauteur_fenetre / 10,
@@ -2121,7 +2129,7 @@ class Tortugauss(tk.Tk):
                     height=self.largeur + 0.95 * self.hauteur_fenetre / 10,
                     width=self.hauteur + 2 * self.hauteur_fenetre / 10,
                 )
-            elif self.actifniveau == 14 or self.actifniveau == 15:
+            elif self.actifniveau == 14  or self.actifniveau == 15 or self.actifniveau >= 16:
                 self.canva.config(
                     height=self.largeur + 1.35 * self.hauteur_fenetre / 10,
                     width=self.hauteur + 2 * self.hauteur_fenetre / 10,
@@ -3370,7 +3378,13 @@ class Tortugauss(tk.Tk):
         texte = ""
         for i in self.listetext2[self.actifniveau]:
             texte += i + "\n"
-
+        if texte !="":
+            self.bouton.create_rectangle(
+                1,
+                10 * self.hauteur_fenetre / 100,
+                9*self.hauteur_fenetre / 10-1,
+                11 * self.hauteur_fenetre / 100+len(self.listetext2[self.actifniveau])*3 * self.hauteur_fenetre / 100,
+                fill="white",width=1,outline='black')
         self.comment = self.bouton.create_text(
             self.hauteur_fenetre / 2,
             11 * self.hauteur_fenetre / 100,
@@ -4184,6 +4198,9 @@ class Tortugauss(tk.Tk):
         self.actifniveau -= 1
         self.systeme.set("niveau 0" + str(self.actifniveau + 2))
         self.changesysteme("niveau 0" + str(self.actifniveau + 2))
+        print(self.actifniveau)
+        self.pack()
+
 
     def echange(self, ligne1, ligne2):
         self.coup += 1
@@ -4392,7 +4409,7 @@ class Tortugauss(tk.Tk):
                     ):
                         self.bouton.itemconfig(
                             self.comment,
-                            text="cette solution a déja était choisi au niveau précédent\nessayez d'en trouver une autre",
+                            text="Cette solution a déjà était choisie au niveau précédent\nessayez d'en trouver une autre",
                         )
                     else:
                         self.gagné()
@@ -4481,7 +4498,7 @@ class Tortugauss(tk.Tk):
                     ):
                         self.bouton.itemconfig(
                             self.comment,
-                            text="cette solution a déja était choisi au niveau précédent\nessayez d'en trouver une autre",
+                            text="Cette solution a déjà était choisie au niveau précédent\nessayez d'en trouver une autre",
                         )
                     else:
                         self.gagné()
@@ -4726,11 +4743,11 @@ class Tortugauss(tk.Tk):
     def click(self, event):
         self.boutonactif = 1
         if self.actifniveau == 5:
-            if time.time() - self.lvl5timer1 > 5 and self.coup > 30:
+            if time.time() - self.lvl5timer1 > 5 and self.coup > 15:
                 if self.nonsolution is None:
                     self.bouton.itemconfig(
                         self.comment,
-                        text="tu as du mal? Si tu pense qu'il n y a pas de solution,\nalors appuis sur ce nouveau bouton",
+                        text="Vous avez du mal? Si vous pensez qu'il n y a pas de solution,\nalors appuyez sur ce nouveau bouton",
                     )
 
                     self.nonsolution = self.bouton.create_rectangle(
@@ -5046,9 +5063,9 @@ class Tortugauss(tk.Tk):
                                 + str(self.listeetoile[self.actifniveau][0]),
                             )
 
-                        self.changemult(0.1, i)
+                        self.changemult(0.2, i)
                         l = i
-                        self.listeaction.append(lambda: self.changemult(-0.1, l))
+                        self.listeaction.append(lambda: self.changemult(-0.2, l))
                         self.canva.itemconfig(self.listebouton2[2 * i], fill="red3")
                         self.boutonactif = 1
                     elif (
@@ -5091,9 +5108,9 @@ class Tortugauss(tk.Tk):
                                 + str(self.listeetoile[self.actifniveau][0]),
                             )
 
-                        self.changemult(-0.1, i)
+                        self.changemult(-0.2, i)
                         l = i
-                        self.listeaction.append(lambda: self.changemult(0.1, l))
+                        self.listeaction.append(lambda: self.changemult(0.2, l))
                         self.canva.itemconfig(self.listebouton2[2 * i + 1], fill="red3")
                         self.boutonactif = 1
             elif (
@@ -5356,10 +5373,10 @@ class Tortugauss(tk.Tk):
                                         + str(self.listeetoile[self.actifniveau][0]),
                                     )
 
-                                self.changemult(0.1, i)
+                                self.changemult(0.2, i)
                                 l = i
                                 self.listeaction.append(
-                                    lambda: self.changemult(-0.1, l)
+                                    lambda: self.changemult(-0.2, l)
                                 )
                                 self.canva.itemconfig(
                                     self.listebouton2[2 * i], fill="red3"
@@ -5410,9 +5427,9 @@ class Tortugauss(tk.Tk):
                                         + str(self.listeetoile[self.actifniveau][0]),
                                     )
 
-                                self.changemult(-0.1, i)
+                                self.changemult(-0.2, i)
                                 l = i
-                                self.listeaction.append(lambda: self.changemult(0.1, l))
+                                self.listeaction.append(lambda: self.changemult(0.2, l))
                                 self.canva.itemconfig(
                                     self.listebouton2[2 * i + 1], fill="red3"
                                 )
@@ -5468,9 +5485,9 @@ class Tortugauss(tk.Tk):
                                 + str(self.listeetoile[self.actifniveau][0]),
                             )
 
-                        self.changemult(0.1, i)
+                        self.changemult(0.2, i)
                         l = i
-                        self.listeaction.append(lambda: self.changemult(-0.1, l))
+                        self.listeaction.append(lambda: self.changemult(-0.2, l))
                         self.canva.itemconfig(self.listebouton2[2 * i], fill="red3")
                         self.boutonactif = 1
                     elif (
@@ -5513,9 +5530,9 @@ class Tortugauss(tk.Tk):
                                 + str(self.listeetoile[self.actifniveau][0]),
                             )
 
-                        self.changemult(-0.1, i)
+                        self.changemult(-0.2, i)
                         l = i
-                        self.listeaction.append(lambda: self.changemult(0.1, l))
+                        self.listeaction.append(lambda: self.changemult(0.2, l))
                         self.canva.itemconfig(self.listebouton2[2 * i + 1], fill="red3")
                         self.boutonactif = 1
             elif (
@@ -5803,10 +5820,10 @@ class Tortugauss(tk.Tk):
                                         + str(self.listeetoile[self.actifniveau][0]),
                                     )
 
-                                self.changemult(0.1, i)
+                                self.changemult(0.2, i)
                                 l = i
                                 self.listeaction.append(
-                                    lambda: self.changemult(-0.1, l)
+                                    lambda: self.changemult(-0.2, l)
                                 )
                                 self.canva.itemconfig(
                                     self.listebouton2[2 * i], fill="red3"
@@ -5825,9 +5842,9 @@ class Tortugauss(tk.Tk):
                                 self.pause.itemconfig(
                                     self.itemcoup, text="nombre de coups: " + a
                                 )
-                                self.changemult(-0.1, i)
+                                self.changemult(-0.2, i)
                                 l = i
-                                self.listeaction.append(lambda: self.changemult(0.1, l))
+                                self.listeaction.append(lambda: self.changemult(0.2, l))
                                 self.canva.itemconfig(
                                     self.listebouton2[2 * i + 1], fill="red3"
                                 )
@@ -6476,7 +6493,9 @@ class Tortugauss(tk.Tk):
                         self.actifniveauselect = i * 8 + j
 
     def recommence(self):
-        self.changesysteme("Usopp est un gros blaireau")
+        self.changesysteme("")
+        self.pack()
+
 
     def retour(self):
         if len(self.listeaction):
@@ -6618,7 +6637,7 @@ class Tortugauss(tk.Tk):
             self.update()
             t2 = time.time()
         self.gagne.place(
-            x=self.largeur_fenetre / 2, y=self.hauteur_fenetre / 3, anchor="c"
+            x=self.largeur_fenetre / 2, y=self.hauteur_fenetre / 3, anchor="center"
         )
         for k in range(len(self.actifA)):
             self.gifcheck[k] = False
@@ -6778,8 +6797,3 @@ fenetre = Tortugauss(ListeA, ListeB, listeetoile)
 
 "Merci."
 
-"""bug à regler:
-- bug du reesayer
-- bug du multiplicatif
--bug du petage de cable de la tortue
-"""
